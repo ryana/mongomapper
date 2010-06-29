@@ -81,7 +81,9 @@ module MongoMapper
           return @proxy_class if defined?(@proxy_class)
 
           @proxy_class =
-            if many?
+            if @options[:proxy_class]
+              @options[:proxy_class]
+            elsif many?
               if klass.embeddable?
                 polymorphic? ? ManyEmbeddedPolymorphicProxy : ManyEmbeddedProxy
               else
